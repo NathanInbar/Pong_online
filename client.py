@@ -1,6 +1,9 @@
 import socket, pickle, threading
 import time, pygame
+from player import Player
 from message import Message
+from ball import Ball
+
 pygame.font.init()
 
 SERVER = "192.168.86.30"
@@ -13,12 +16,14 @@ HEIGHT = 600
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 win = pygame.display.set_mode((WIDTH, HEIGHT))
 
-msg = Message("!msg")
+msg = Message(Player(50,50,50,50,(200,20,200)), Player(100,100,50,50,(20,200,100)), Ball())
+#empty global update-message
 
 def receive():
     global msg
     while True:
         msg = pickle.loads(client.recv(2048))
+        print("recieved...")
 
 def renderText(txt, font="consolas",size=30, color=(255,255,255)):
     font = pygame.font.SysFont(font, size)
@@ -27,6 +32,10 @@ def renderText(txt, font="consolas",size=30, color=(255,255,255)):
     pygame.display.update()
 
 def render():
+    msg.player1.render(win)
+    msg.player2.render(win)
+    msg.ball.render(win)
+
     pygame.display.update()
 
 def start():
@@ -36,8 +45,8 @@ def start():
     while run:
             clock.tick()
             win.fill((30,30,30))
-            renderText("Waiting for Player...")
-            render()
+            renderText("Click to Connect...")
+            #render()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     run = False
@@ -59,8 +68,9 @@ def main():
     while run:
         clock.tick(60)
         win.fill((30,30,30))
-        renderText(f"{msg.txt}")
+        #renderText(f"{msg.txt}")
         render()
+        #print(msg.player1.x)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False

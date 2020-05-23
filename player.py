@@ -1,7 +1,7 @@
 import pygame
 
 class Player:
-    def __init__(self, x, y, width, height, color):
+    def __init__(self, x=0, y=0, width=0, height=0, color=(0,0,0)):
         self.x = x
         self.y = y
         self.width = width
@@ -18,4 +18,4 @@ class Player:
         self.rect = self.rect(self.x, self.y, self.width, self.height)
 
     def render(self, win):
-        pygame.draw.rect(win, self.rect, self.color)
+        pygame.draw.rect(win, self.color, self.rect)
