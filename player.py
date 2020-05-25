@@ -1,7 +1,8 @@
 import pygame
 
 class Player:
-    def __init__(self, x=0, y=0, width=0, height=0, color=(0,0,0)):
+    def __init__(self, id, x, y, width, height, color):
+        self.id = id
         self.x = x
         self.y = y
         self.width = width
@@ -9,13 +10,18 @@ class Player:
         self.color = color
         self.rect = (x, y, width, height)
         self.velocity = 3
+        self.package = (self.rect,self.color,self.velocity)
 
     def update(self):
-        if(pygame.keys[pygame.K_w]):
+        keys = pygame.key.get_pressed()
+        if(keys[pygame.K_w]):
             self.x -= self.velocity
-        if(pygame.keys[pygame.K_s]):
+        if(keys[pygame.K_s]):
             self.x += self.velocity
-        self.rect = self.rect(self.x, self.y, self.width, self.height)
+        self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
 
     def render(self, win):
         pygame.draw.rect(win, self.color, self.rect)
+
+    def __str__(self):
+        return f"P{self.id} {self.package}"
