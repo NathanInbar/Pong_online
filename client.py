@@ -5,7 +5,7 @@ from ball import Ball
 
 pygame.font.init()
 
-SERVER = "192.168.86.30"
+SERVER = "192.168.86.174"#.174 lappy / .30 deskky
 PORT = 5052
 ADDR = (SERVER, PORT)
 FORMAT = 'utf-8'
@@ -36,9 +36,12 @@ def interpret_msg():
     p2 = []
     bl = []
 
+    #print(msg)
     #string sanitization:
     #('((30, 250, 20, 100), (211, 38, 38), 3)', '((770, 250, 20, 100), (0, 173, 181), 3)', '((400, 300, 10), (255, 255, 255), 2, 2)')
     msg = "".join(list([val for val in msg if val.isalnum() or val==" " or val=="/"]))
+
+    #print(msg)
     # _msg = msg.split()
     # #x, y, width, height, color, velocity
     # #30 250 20 100 211 38 38 3
@@ -72,8 +75,14 @@ def interpret_msg():
     #         ball.yVel = int(_msg[7])
     # \/
     #/30 250 20 100 211 38 38 3 770 250 20 100 0 173 181 3 400 300 10 255 255 255 2 2/
-    msg = msg[msg.find('/')+len('/'):msg.rfind('/')]#in case 2 messages get stacked together, just read the first one (between the '/' markers)
+    # msg = msg.strip()
+    # start = msg.find("/")#in case 2 messages get stacked together, just read the first one (between the '/', '!' markers)
+    # end = msg.find("!")
+    # msg = msg[start:end+1]
     #30 250 20 100 211 38 38 3 770 250 20 100 0 173 181 3 400 300 10 255 255 255 2 2
+
+    #print(f"HJK:'{msg}'")
+    msg = msg[1:]
     msg = msg.split()
     for i in range(len(msg)):
         #print(f"MSG:'{msg}'")
