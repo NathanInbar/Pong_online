@@ -19,4 +19,4 @@ class Ball():
         pygame.draw.circle(win, self.color, (self.x,self.y), self.radius)
 
     def __str__(self):
-        return f"BALL {self.package}"
+        return f"{self.package}"
