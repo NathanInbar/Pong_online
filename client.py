@@ -38,6 +38,7 @@ def interpret_msg():
     #print(msg)
     #string sanitization:
     #('((30, 250, 20, 100), (211, 38, 38), 3)', '((770, 250, 20, 100), (0, 173, 181), 3)', '((400, 300, 10), (255, 255, 255), 2, 2)')
+    print(msg)
     msg = "".join(list([val for val in msg if val.isalnum() or val==" " or val=="/"]))
     c = msg.rfind('/')+1
     msg = msg[c:]

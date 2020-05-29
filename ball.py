@@ -20,3 +20,4 @@ class Ball():
 
     def __str__(self):
         return f"{self.package}"
+#400 300 10 255 255 255 2
